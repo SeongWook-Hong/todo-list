@@ -1,22 +1,33 @@
-:root {
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+@layer base {
+  h1 {
+    @apply text-2xl;
+    @apply font-bold;
+  }
+  h2 {
+    @apply text-xl;
+    @apply font-bold;
+  }
+  h3 {
+    @apply text-lg;
+    @apply font-bold;
+  }
+  input {
+    outline: none;
+  }
 }
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+@layer components {
+  .btn {
+    background-color: rgb(37, 147, 255);
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(37, 147, 255, 0.85);
+    }
+  }
 }
