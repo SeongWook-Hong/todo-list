@@ -2,8 +2,27 @@ import Editor from '@/components/Editor/Editor';
 import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
+import { useRef, useState } from 'react';
 
+interface TTodo {
+  id: number;
+  isDone: boolean;
+  content: string;
+  date: number;
+}
 export default function Home() {
+  const [todos, setTodos] = useState<TTodo[]>([]);
+  const idRef = useRef(0);
+
+  const handleAddTodo = (newContent: string) => {
+    const newTodo = {
+      id: idRef.current++,
+      isDone: false,
+      content: newContent,
+      date: new Date().getTime(),
+    };
+    setTodos([...todos, newTodo]);
+  };
   return (
     <>
       <Head>
@@ -14,8 +33,8 @@ export default function Home() {
       </Head>
       <main className="ml-auto mr-auto flex w-[500px] flex-col gap-5 p-5">
         <Header />
-        <Editor />
-        <List />
+        <Editor onAddTodo={handleAddTodo} />
+        <List todos={todos} />
       </main>
     </>
   );
