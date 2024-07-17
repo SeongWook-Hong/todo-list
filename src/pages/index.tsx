@@ -23,6 +23,13 @@ export default function Home() {
     };
     setTodos([...todos, newTodo]);
   };
+  const handleUpdateTodo = (targetId: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo,
+      ),
+    );
+  };
   return (
     <>
       <Head>
@@ -34,7 +41,7 @@ export default function Home() {
       <main className="ml-auto mr-auto flex w-[500px] flex-col gap-5 p-5">
         <Header />
         <Editor onAddTodo={handleAddTodo} />
-        <List todos={todos} />
+        <List todos={todos} onUpdateTodo={handleUpdateTodo} />
       </main>
     </>
   );
