@@ -1,10 +1,14 @@
 interface Props {
   todo: { id: number; isDone: boolean; content: string; date: number };
   onUpdateTodo: (targetId: number) => void;
+  onDeleteTodo: (targetId: number) => void;
 }
-const Items = ({ todo, onUpdateTodo }: Props) => {
+const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
   const handleChangeCheckBox = () => {
     onUpdateTodo(todo.id);
+  };
+  const handleDeleteButton = () => {
+    onDeleteTodo(todo.id);
   };
   return (
     <div className="flex items-center gap-5 border-b-[1px] pb-5">
@@ -20,7 +24,9 @@ const Items = ({ todo, onUpdateTodo }: Props) => {
       <div className="text-gray-400">
         {new Date(todo.date).toLocaleDateString()}
       </div>
-      <button className="btn p-2 text-sm">완료</button>
+      <button className="btn p-2 text-sm" onClick={handleDeleteButton}>
+        지우기
+      </button>
     </div>
   );
 };

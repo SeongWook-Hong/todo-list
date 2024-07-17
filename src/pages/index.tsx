@@ -30,6 +30,9 @@ export default function Home() {
       ),
     );
   };
+  const handleDeleteTodo = (targetId: number) => {
+    setTodos(todos.filter((todo) => todo.id !== targetId));
+  };
   return (
     <>
       <Head>
@@ -41,7 +44,11 @@ export default function Home() {
       <main className="ml-auto mr-auto flex w-[500px] flex-col gap-5 p-5">
         <Header />
         <Editor onAddTodo={handleAddTodo} />
-        <List todos={todos} onUpdateTodo={handleUpdateTodo} />
+        <List
+          todos={todos}
+          onUpdateTodo={handleUpdateTodo}
+          onDeleteTodo={handleDeleteTodo}
+        />
       </main>
     </>
   );
