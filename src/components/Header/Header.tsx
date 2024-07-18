@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 const Header = () => {
   return (
     <div className="flex flex-col gap-3">
@@ -7,4 +9,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

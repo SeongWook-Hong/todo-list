@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface Props {
   todo: { id: number; isDone: boolean; content: string; date: number };
   onUpdateTodo: (targetId: number) => void;
@@ -31,4 +33,7 @@ const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
   );
 };
 
-export default Items;
+export default memo(Items, (prevProps, nextProps) => {
+  if (prevProps.todo !== nextProps.todo) return false;
+  return true;
+});
