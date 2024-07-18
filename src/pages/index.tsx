@@ -2,7 +2,7 @@ import Editor from '@/components/Editor/Editor';
 import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
-import { useRef, useState } from 'react';
+import { useReducer, useRef } from 'react';
 
 interface TTodo {
   id: number;
@@ -10,28 +10,45 @@ interface TTodo {
   content: string;
   date: number;
 }
+type TAction =
+  | { type: 'ADD_TODO'; todo: TTodo }
+  | { type: 'UPDATE_TODO' | 'DELETE_TODO'; targetId: number };
+
+const reducer = (state: TTodo[], action: TAction): TTodo[] => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [action.todo, ...state];
+    case 'UPDATE_TODO':
+      return state.map((item) =>
+        item.id === action.targetId ? { ...item, isDone: !item.isDone } : item,
+      );
+    case 'DELETE_TODO':
+      return state.filter((item) => item.id !== action.targetId);
+    default:
+      return state;
+  }
+};
+
 export default function Home() {
-  const [todos, setTodos] = useState<TTodo[]>([]);
+  const [todos, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
 
   const handleAddTodo = (newContent: string) => {
-    const newTodo = {
-      id: idRef.current++,
-      isDone: false,
-      content: newContent,
-      date: new Date().getTime(),
-    };
-    setTodos([...todos, newTodo]);
+    dispatch({
+      type: 'ADD_TODO',
+      todo: {
+        id: idRef.current++,
+        isDone: false,
+        content: newContent,
+        date: new Date().getTime(),
+      },
+    });
   };
   const handleUpdateTodo = (targetId: number) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === targetId ? { ...todo, isDone: !todo.isDone } : todo,
-      ),
-    );
+    dispatch({ type: 'UPDATE_TODO', targetId: targetId });
   };
   const handleDeleteTodo = (targetId: number) => {
-    setTodos(todos.filter((todo) => todo.id !== targetId));
+    dispatch({ type: 'DELETE_TODO', targetId: targetId });
   };
   return (
     <>
