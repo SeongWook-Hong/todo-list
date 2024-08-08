@@ -33,7 +33,4 @@ const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
   );
 };
 
-export default memo(Items, (prevProps, nextProps) => {
-  if (prevProps.todo !== nextProps.todo) return false;
-  return true;
-});
+export default memo(Items);

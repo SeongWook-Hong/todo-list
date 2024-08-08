@@ -2,7 +2,7 @@ import Editor from '@/components/Editor/Editor';
 import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
-import { useReducer, useRef } from 'react';
+import { useCallback, useReducer, useRef } from 'react';
 
 interface TTodo {
   id: number;
@@ -33,7 +33,7 @@ export default function Home() {
   const [todos, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
 
-  const handleAddTodo = (newContent: string) => {
+  const handleAddTodo = useCallback((newContent: string) => {
     dispatch({
       type: 'ADD_TODO',
       todo: {
@@ -43,13 +43,14 @@ export default function Home() {
         date: new Date().getTime(),
       },
     });
-  };
-  const handleUpdateTodo = (targetId: number) => {
+  }, []);
+  const handleUpdateTodo = useCallback((targetId: number) => {
     dispatch({ type: 'UPDATE_TODO', targetId: targetId });
-  };
-  const handleDeleteTodo = (targetId: number) => {
+  }, []);
+  const handleDeleteTodo = useCallback((targetId: number) => {
     dispatch({ type: 'DELETE_TODO', targetId: targetId });
-  };
+  }, []);
+
   return (
     <>
       <Head>
