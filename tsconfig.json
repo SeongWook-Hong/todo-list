@@ -13,10 +13,11 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
+      "@db/*": ["./db/*"],
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "src/**/*"],
+  "include": ["next-env.d.ts", "db/**/*", "src/**/*"],
   "exclude": [
     "node_modules",
     "next.config.mjs",

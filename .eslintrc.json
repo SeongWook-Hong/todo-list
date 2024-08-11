@@ -27,6 +27,8 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
-    "no-useless-catch": "off"
+    "no-useless-catch": "off",
+    "no-var": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
