@@ -2,55 +2,31 @@ import Editor from '@/components/Editor/Editor';
 import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
-import { useCallback, useReducer, useRef } from 'react';
-
-interface TTodo {
-  id: number;
-  isDone: boolean;
-  content: string;
-  date: number;
-}
-type TAction =
-  | { type: 'ADD_TODO'; todo: TTodo }
-  | { type: 'UPDATE_TODO' | 'DELETE_TODO'; targetId: number };
-
-const reducer = (state: TTodo[], action: TAction): TTodo[] => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return [action.todo, ...state];
-    case 'UPDATE_TODO':
-      return state.map((item) =>
-        item.id === action.targetId ? { ...item, isDone: !item.isDone } : item,
-      );
-    case 'DELETE_TODO':
-      return state.filter((item) => item.id !== action.targetId);
-    default:
-      return state;
-  }
-};
+import {
+  useDeleteTodo,
+  useGetTodos,
+  usePatchTodo,
+  usePostTodo,
+} from '@/pages/api/hooks/useMyTodos';
 
 export default function Home() {
-  const [todos, dispatch] = useReducer(reducer, []);
-  const idRef = useRef(0);
+  const { data: todos } = useGetTodos();
+  const { mutate: postTodo } = usePostTodo();
+  const { mutate: patchTodo } = usePatchTodo();
+  const { mutate: deleteTodo } = useDeleteTodo();
 
-  const handleAddTodo = useCallback((newContent: string) => {
-    dispatch({
-      type: 'ADD_TODO',
-      todo: {
-        id: idRef.current++,
-        isDone: false,
-        content: newContent,
-        date: new Date().getTime(),
-      },
-    });
-  }, []);
-  const handleUpdateTodo = useCallback((targetId: number) => {
-    dispatch({ type: 'UPDATE_TODO', targetId: targetId });
-  }, []);
-  const handleDeleteTodo = useCallback((targetId: number) => {
-    dispatch({ type: 'DELETE_TODO', targetId: targetId });
-  }, []);
+  const handleAddTodo = (newContent: string) => {
+    postTodo(newContent);
+  };
 
+  const handleUpdateTodo = (targetId: number) => {
+    patchTodo(targetId);
+  };
+  const handleDeleteTodo = (targetId: number) => {
+    deleteTodo(targetId);
+  };
+
+  console.log(todos);
   return (
     <>
       <Head>
