@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 
 const todoSchema = new mongoose.Schema(
   {
-    title: { type: String, default: '' },
     isDone: { type: Boolean, default: '' },
+    content: { type: String, default: '' },
+    deadline: { type: String, default: '' },
   },
   { timestamps: true },
 );

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '@db/dbConnect';
-import Todo from '@db/models/Todo';
+import dbConnect from '@/db/dbConnect';
+import Todo from '@/db/models/Todo';
 
 export default async function handler(
   req: NextApiRequest,
