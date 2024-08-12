@@ -5,7 +5,7 @@ interface TTodo {
   _id: number;
   isDone: boolean;
   content: string;
-  deadline: number;
+  deadline: string;
 }
 interface Props {
   todo: TTodo;
@@ -30,9 +30,7 @@ const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
       <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-bold">
         {todo.content}
       </div>
-      <div className="text-gray-400">
-        {new Date(todo.deadline).toLocaleDateString()}
-      </div>
+      <div className="text-gray-400">{todo.deadline}</div>
       <Button
         btn_type={'delete'}
         extraStyle={'text-sm'}

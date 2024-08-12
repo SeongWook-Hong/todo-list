@@ -7,7 +7,7 @@ interface TTodo {
   _id: number;
   isDone: boolean;
   content: string;
-  deadline: number;
+  deadline: string;
 }
 interface Props {
   onUpdateTodo: (targetId: number) => void;
