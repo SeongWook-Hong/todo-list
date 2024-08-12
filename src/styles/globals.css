@@ -20,7 +20,7 @@
   }
 }
 @layer components {
-  .btn {
+  .btn_primary {
     background-color: rgb(37, 147, 255);
     color: #fff;
     padding: 10px;
@@ -28,6 +28,16 @@
     cursor: pointer;
     &:hover {
       background-color: rgba(37, 147, 255, 0.85);
+    }
+  }
+  .btn_delete {
+    background-color: #fff;
+    color: rgb(156, 163, 175);
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(225, 225, 225, 0.55);
     }
   }
 }

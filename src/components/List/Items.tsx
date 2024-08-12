@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import Button from '@/components/common/Button';
 
 interface TTodo {
   _id: number;
@@ -32,9 +33,13 @@ const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
       <div className="text-gray-400">
         {new Date(todo.deadline).toLocaleDateString()}
       </div>
-      <button className="btn p-2 text-sm" onClick={handleDeleteButton}>
-        지우기
-      </button>
+      <Button
+        btn_type={'delete'}
+        extraStyle={'text-sm'}
+        onClick={handleDeleteButton}
+      >
+        ✕
+      </Button>
     </div>
   );
 };
