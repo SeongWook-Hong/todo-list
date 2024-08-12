@@ -1,7 +1,10 @@
 import React, { useRef, useState } from 'react';
+import Button from '@/components/common/Button';
+import Modal from '@/components/common/Modal/Modal';
+import ModalPortal from '@/components/common/Modal/ModalPortal';
 
 interface Props {
-  onAddTodo: (newContent: string) => void;
+  onAddTodo: (newContent: { content: string; deadline: string }) => void;
 }
 
 const Editor = ({ onAddTodo }: Props) => {
@@ -13,17 +16,23 @@ const Editor = ({ onAddTodo }: Props) => {
   };
   const handleKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSubmit();
+      e.preventDefault();
+      return;
     }
   };
-  const handleSubmit = () => {
+  const handleDeadlineClick = () => {
     if (content === '') {
       contentRef.current?.focus();
       return;
     }
-    onAddTodo(content);
-    setContent('');
+    setModalOpen(true);
   };
+  const handleModalClose = () => {
+    setContent('');
+    setModalOpen(false);
+  };
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className="flex gap-3">
       <input
@@ -34,9 +43,18 @@ const Editor = ({ onAddTodo }: Props) => {
         onChange={handleChangeContent}
         placeholder="할 일 추가하기..."
       />
-      <button className="btn" type="button" onClick={handleSubmit}>
-        추가
-      </button>
+      <Button btn_type={'primary'} onClick={handleDeadlineClick}>
+        마감일
+      </Button>
+      {modalOpen && (
+        <ModalPortal>
+          <Modal
+            content={content}
+            onAddTodo={onAddTodo}
+            onModalClose={handleModalClose}
+          />
+        </ModalPortal>
+      )}
     </div>
   );
 };
