@@ -4,13 +4,11 @@ import List from '@/components/List/List';
 import Head from 'next/head';
 import {
   useDeleteTodo,
-  useGetTodos,
   usePatchTodo,
   usePostTodo,
 } from '@/pages/api/hooks/useMyTodos';
 
 export default function Home() {
-  const { data: todos } = useGetTodos();
   const { mutate: postTodo } = usePostTodo();
   const { mutate: patchTodo } = usePatchTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
@@ -18,7 +16,6 @@ export default function Home() {
   const handleAddTodo = (newContent: string) => {
     postTodo(newContent);
   };
-
   const handleUpdateTodo = (targetId: number) => {
     patchTodo(targetId);
   };
@@ -26,7 +23,6 @@ export default function Home() {
     deleteTodo(targetId);
   };
 
-  console.log(todos);
   return (
     <>
       <Head>
@@ -38,11 +34,7 @@ export default function Home() {
       <main className="ml-auto mr-auto flex w-[500px] flex-col gap-5 p-5">
         <Header />
         <Editor onAddTodo={handleAddTodo} />
-        <List
-          todos={todos}
-          onUpdateTodo={handleUpdateTodo}
-          onDeleteTodo={handleDeleteTodo}
-        />
+        <List onUpdateTodo={handleUpdateTodo} onDeleteTodo={handleDeleteTodo} />
       </main>
     </>
   );
