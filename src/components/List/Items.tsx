@@ -1,16 +1,16 @@
 import { memo } from 'react';
 
 interface Props {
-  todo: { id: number; isDone: boolean; content: string; date: number };
+  todo: { _id: number; isDone: boolean; content: string; date: number };
   onUpdateTodo: (targetId: number) => void;
   onDeleteTodo: (targetId: number) => void;
 }
 const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
   const handleChangeCheckBox = () => {
-    onUpdateTodo(todo.id);
+    onUpdateTodo(todo._id);
   };
   const handleDeleteButton = () => {
-    onDeleteTodo(todo.id);
+    onDeleteTodo(todo._id);
   };
   return (
     <div className="flex items-center gap-5 border-b-[1px] pb-5">
