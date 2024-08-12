@@ -1,10 +1,11 @@
 import { memo } from 'react';
+import Button from '@/components/common/Button';
 
 interface TTodo {
   _id: number;
   isDone: boolean;
   content: string;
-  deadline: number;
+  deadline: string;
 }
 interface Props {
   todo: TTodo;
@@ -29,12 +30,14 @@ const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
       <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap font-bold">
         {todo.content}
       </div>
-      <div className="text-gray-400">
-        {new Date(todo.deadline).toLocaleDateString()}
-      </div>
-      <button className="btn p-2 text-sm" onClick={handleDeleteButton}>
-        지우기
-      </button>
+      <div className="text-gray-400">{todo.deadline}</div>
+      <Button
+        btn_type={'delete'}
+        extraStyle={'text-sm'}
+        onClick={handleDeleteButton}
+      >
+        ✕
+      </Button>
     </div>
   );
 };

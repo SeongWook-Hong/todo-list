@@ -13,7 +13,7 @@ export default function Home() {
   const { mutate: patchTodo } = usePatchTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
 
-  const handleAddTodo = (newContent: string) => {
+  const handleAddTodo = (newContent: { content: string; deadline: string }) => {
     postTodo(newContent);
   };
   const handleUpdateTodo = (targetId: number) => {

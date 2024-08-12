@@ -16,11 +16,11 @@ export const usePostTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (newContent: string) => {
+    mutationFn: async (newContent: { content: string; deadline: string }) => {
       const { data } = await baseAxios.post('/todo/', {
         isDone: false,
-        content: newContent,
-        deadline: new Date(new Date().getTime()).toISOString(),
+        content: newContent.content,
+        deadline: newContent.deadline,
       });
       return data;
     },
