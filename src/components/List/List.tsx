@@ -1,15 +1,23 @@
 import { useMemo } from 'react';
 import Items from './Items';
+import { useGetTodos } from '@/pages/api/hooks/useMyTodos';
 
+interface TTodo {
+  _id: number;
+  isDone: boolean;
+  content: string;
+  deadline: number;
+}
 interface Props {
-  todos: { _id: number; isDone: boolean; content: string; date: number }[];
   onUpdateTodo: (targetId: number) => void;
   onDeleteTodo: (targetId: number) => void;
 }
-const List = ({ todos, onUpdateTodo, onDeleteTodo }: Props) => {
+const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
+  const { data: todos, isSuccess } = useGetTodos();
+
   const { totalCount, doneCount, notDoneCount } = useMemo(() => {
     const totalCount = todos?.length;
-    const doneCount = todos?.filter((todo) => todo.isDone)?.length;
+    const doneCount = todos?.filter((todo: TTodo) => todo.isDone)?.length;
     const notDoneCount = totalCount - doneCount;
 
     return { totalCount, doneCount, notDoneCount };
@@ -19,7 +27,7 @@ const List = ({ todos, onUpdateTodo, onDeleteTodo }: Props) => {
     <div className="flex flex-col gap-5">
       <div className="font-bold">오늘 할 일 ✏📚</div>
 
-      {todos?.length === 0 ? (
+      {isSuccess && todos?.length === 0 ? (
         <h3>할 일을 모두 완료했어요 ☺</h3>
       ) : (
         <>
@@ -28,7 +36,7 @@ const List = ({ todos, onUpdateTodo, onDeleteTodo }: Props) => {
             <div>Done: {doneCount}</div>
             <div>Not Done: {notDoneCount}</div>
           </div>
-          {todos?.map((todo) => (
+          {todos?.map((todo: TTodo) => (
             <Items
               key={todo._id}
               todo={todo}

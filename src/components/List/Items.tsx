@@ -1,7 +1,13 @@
 import { memo } from 'react';
 
+interface TTodo {
+  _id: number;
+  isDone: boolean;
+  content: string;
+  deadline: number;
+}
 interface Props {
-  todo: { _id: number; isDone: boolean; content: string; date: number };
+  todo: TTodo;
   onUpdateTodo: (targetId: number) => void;
   onDeleteTodo: (targetId: number) => void;
 }
@@ -24,7 +30,7 @@ const Items = ({ todo, onUpdateTodo, onDeleteTodo }: Props) => {
         {todo.content}
       </div>
       <div className="text-gray-400">
-        {new Date(todo.date).toLocaleDateString()}
+        {new Date(todo.deadline).toLocaleDateString()}
       </div>
       <button className="btn p-2 text-sm" onClick={handleDeleteButton}>
         지우기
