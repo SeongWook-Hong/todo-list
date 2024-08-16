@@ -4,7 +4,7 @@ interface Props {
   btn_type: 'primary' | 'delete';
   extraStyle?: string;
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
 }
 
