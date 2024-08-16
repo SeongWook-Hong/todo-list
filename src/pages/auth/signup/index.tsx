@@ -1,6 +1,6 @@
 import Button from '@/components/common/Button';
 import InputForm from '@/components/common/InputForm';
-import { useGetUser, usePostUser } from '@/pages/api/hooks/useUsers';
+import { useGetOldUser, usePostUser } from '@/pages/api/hooks/useUsers';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -14,21 +14,21 @@ const Signup = () => {
   });
 
   const { mutate: postUser } = usePostUser();
-  const { mutate: getUser } = useGetUser();
+  const { mutate: getUser } = useGetOldUser();
 
   const handleAddUser = (userInfo: { email: string; password: string }) => {
     postUser(userInfo);
   };
-  function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
-  }
+  };
 
-  function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
@@ -49,7 +49,7 @@ const Signup = () => {
 
     handleAddUser({ email, password });
     router.push('/auth/signin');
-  }
+  };
 
   return (
     <>

@@ -1,40 +1,47 @@
 import Button from '@/components/common/Button';
 import InputForm from '@/components/common/InputForm';
-import { usePostUser } from '@/pages/api/hooks/useUsers';
+import { usePostLogin } from '@/pages/api/hooks/useUsers';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const Signin = () => {
   const router = useRouter();
 
-  const { mutate: postUser } = usePostUser();
-
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
-  const handleAddUser = (userInfo: { email: string; password: string }) => {
-    postUser(userInfo);
-  };
-  function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
+
+  const { mutate: getUser } = usePostLogin();
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
-  }
-  function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
+  };
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
 
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    handleAddUser({ email, password });
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-  }
+    getUser(
+      { email, password },
+      {
+        onSuccess: () => {
+          console.log('로그인 성공');
+          // 토큰 발행
+        },
+        onError: () => {
+          alert('이메일과 비밀번호를 다시 확인해주세요.');
+        },
+      },
+    );
+  };
 
   return (
     <>
