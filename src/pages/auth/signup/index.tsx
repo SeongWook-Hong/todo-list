@@ -53,7 +53,7 @@ const Signup = () => {
 
   return (
     <>
-      <h1 className="mx-auto my-5">로그인</h1>
+      <h1 className="mx-auto my-5">회원가입</h1>
       <form onSubmit={handleSubmitForm}>
         <InputForm
           htmlFor="email"
@@ -81,6 +81,15 @@ const Signup = () => {
           회원가입
         </Button>
       </form>
+      <Button
+        btn_type="delete"
+        extraStyle="w-[50%] ml-auto"
+        onClick={() => {
+          router.push('/auth/signin');
+        }}
+      >
+        이미 계정이 있으신가요?
+      </Button>
     </>
   );
 };

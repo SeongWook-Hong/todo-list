@@ -1,9 +1,12 @@
 import Button from '@/components/common/Button';
 import InputForm from '@/components/common/InputForm';
 import { usePostUser } from '@/pages/api/hooks/useUsers';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const Signin = () => {
+  const router = useRouter();
+
   const { mutate: postUser } = usePostUser();
 
   const [values, setValues] = useState({
@@ -56,6 +59,15 @@ const Signin = () => {
           로그인
         </Button>
       </form>
+      <Button
+        btn_type="delete"
+        extraStyle="w-[50%] ml-auto"
+        onClick={() => {
+          router.push('/auth/signup');
+        }}
+      >
+        아직 계정이 없으신가요?
+      </Button>
     </>
   );
 };
