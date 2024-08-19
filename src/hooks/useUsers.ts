@@ -15,11 +15,12 @@ export const useGetOldUser = () => {
   });
 };
 
-// 로그인
+// 로그인 및 토큰 인증
 export const usePostLogin = () => {
+  const router = useRouter();
   return useMutation({
     mutationFn: async (userInfo: { email: string; password: string }) => {
-      const { data } = await baseAxios.post(
+      const { data: loginData } = await baseAxios.post(
         '/user/login',
         {
           email: userInfo.email,
@@ -29,24 +30,19 @@ export const usePostLogin = () => {
           withCredentials: true,
         },
       );
-      return data;
-    },
-    retry: false,
-  });
-};
-
-// 토큰 인증
-export const useGetAuth = () => {
-  const router = useRouter();
-  return useMutation({
-    mutationFn: async () => {
-      const { data } = await baseAxios.get('/user/auth', {
+      await baseAxios.get('/user/auth', {
         withCredentials: true,
       });
-      return data;
+      return loginData._id;
     },
-    onSuccess: () => {
-      router.push('/');
+    onSuccess: (userId) => {
+      router.push({
+        pathname: '/',
+        query: { userId },
+      });
+    },
+    onError: () => {
+      alert('이메일과 비밀번호를 다시 확인해주세요.');
     },
     retry: false,
   });

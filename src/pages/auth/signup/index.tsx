@@ -1,6 +1,6 @@
 import Button from '@/components/common/Button';
 import InputForm from '@/components/common/InputForm';
-import { useGetOldUser, usePostUser } from '@/pages/api/hooks/useUsers';
+import { useGetOldUser, usePostUser } from '@/hooks/useUsers';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 

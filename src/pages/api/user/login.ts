@@ -13,7 +13,7 @@ export default async function handler(
     case 'POST':
       const loginUser = await User.findOne(req.body);
       if (!loginUser) {
-        return res.status(404).send('해당 유저 없음');
+        return res.status(404).send('해당 유저가 없습니다.');
       }
       const token = jwt.sign(
         { userId: loginUser._id, email: loginUser.email },
@@ -24,7 +24,7 @@ export default async function handler(
         'Set-Cookie',
         `loginToken=${token}; HttpOnly; Path=/; Max-Age=3600`,
       );
-      res.send(token);
+      res.send(loginUser);
       break;
 
     default:

@@ -1,6 +1,6 @@
 import Button from '@/components/common/Button';
 import InputForm from '@/components/common/InputForm';
-import { useGetAuth, usePostLogin } from '@/pages/api/hooks/useUsers';
+import { usePostLogin } from '@/hooks/useUsers';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -13,7 +13,6 @@ const Signin = () => {
   });
 
   const { mutate: postLogin } = usePostLogin();
-  const { mutate: getAuth } = useGetAuth();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,18 +29,7 @@ const Signin = () => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
 
-    postLogin(
-      { email, password },
-      {
-        onSuccess: () => {
-          console.log('로그인 성공');
-          getAuth();
-        },
-        onError: () => {
-          alert('이메일과 비밀번호를 다시 확인해주세요.');
-        },
-      },
-    );
+    postLogin({ email, password });
   };
 
   return (
