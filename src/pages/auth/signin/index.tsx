@@ -34,7 +34,6 @@ const Signin = () => {
       { email, password },
       {
         onSuccess: () => {
-          console.log('로그인 성공');
           getAuth();
         },
         onError: () => {
