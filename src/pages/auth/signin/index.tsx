@@ -1,6 +1,6 @@
 import Button from '@/components/common/Button';
 import InputForm from '@/components/common/InputForm';
-import { useGetAuth, usePostLogin } from '@/pages/api/hooks/useUsers';
+import { useGetAuth, usePostLogin } from '@/hooks/useUsers';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 

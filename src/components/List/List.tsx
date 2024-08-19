@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import Items from './Items';
-import { useGetTodos } from '@/pages/api/hooks/useMyTodos';
+import { useGetTodos } from '@/hooks/useMyTodos';
 import Button from '@/components/common/Button';
 
 interface TTodo {

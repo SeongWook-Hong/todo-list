@@ -2,11 +2,7 @@ import Editor from '@/components/Editor/Editor';
 import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
-import {
-  useDeleteTodo,
-  usePatchTodo,
-  usePostTodo,
-} from '@/pages/api/hooks/useMyTodos';
+import { useDeleteTodo, usePatchTodo, usePostTodo } from '@/hooks/useMyTodos';
 
 export default function Home() {
   const { mutate: postTodo } = usePostTodo();
