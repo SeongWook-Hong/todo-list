@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import Items from './Items';
 import { useGetTodos } from '@/hooks/useMyTodos';
 import Button from '@/components/common/Button';
+import { useRouter } from 'next/router';
 
 interface TTodo {
   _id: number;
@@ -14,7 +15,11 @@ interface Props {
   onDeleteTodo: (targetId: number) => void;
 }
 const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
-  const { data: todos, isSuccess } = useGetTodos();
+  const router = useRouter();
+  const { userId } = router.query;
+  const id = userId?.toString();
+
+  const { data: todos, isSuccess } = useGetTodos(id);
 
   const { totalCount, doneCount, notDoneCount } = useMemo(() => {
     const totalCount = todos?.length;
