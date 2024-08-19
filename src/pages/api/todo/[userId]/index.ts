@@ -7,19 +7,18 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   await dbConnect();
-  const { id } = req.query;
+
+  const { userId } = req.query;
 
   switch (req.method) {
-    case 'PATCH':
-      const updateTodo = await Todo.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
-      res.send(updateTodo);
+    case 'POST':
+      const newTodo = await Todo.create(req.body);
+      res.send(newTodo);
       break;
 
-    case 'DELETE':
-      const deleteTodo = await Todo.findByIdAndDelete(id);
-      res.status(204).send(deleteTodo);
+    case 'GET':
+      const todos = await Todo.find({ userId });
+      res.send(todos);
       break;
 
     default:
