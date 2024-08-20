@@ -33,13 +33,10 @@ export const usePostLogin = () => {
       await baseAxios.get('/user/auth', {
         withCredentials: true,
       });
-      return loginData._id;
+      return loginData;
     },
-    onSuccess: (userId) => {
-      router.push({
-        pathname: '/',
-        query: { userId },
-      });
+    onSuccess: () => {
+      router.push('/');
     },
     onError: () => {
       alert('이메일과 비밀번호를 다시 확인해주세요.');
