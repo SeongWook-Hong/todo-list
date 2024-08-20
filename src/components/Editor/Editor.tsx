@@ -2,17 +2,12 @@ import React, { useRef, useState } from 'react';
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal/Modal';
 import ModalPortal from '@/components/common/Modal/ModalPortal';
-import { useRouter } from 'next/router';
 
 interface Props {
   onAddTodo: (newContent: { content: string; deadline: string }) => void;
 }
 
 const Editor = ({ onAddTodo }: Props) => {
-  const router = useRouter();
-  const { userId } = router.query;
-  const id = userId?.toString();
-
   const [content, setContent] = useState('');
   const contentRef = useRef<HTMLInputElement>(null);
 
@@ -30,10 +25,10 @@ const Editor = ({ onAddTodo }: Props) => {
       contentRef.current?.focus();
       return;
     }
-    if (!id) {
-      alert('로그인 후에 서비스를 이용할 수 있습니다.');
-      return;
-    }
+    // if (!id) {
+    //   alert('로그인 후에 서비스를 이용할 수 있습니다.');
+    //   return;
+    // }
     setModalOpen(true);
   };
   const handleModalClose = () => {

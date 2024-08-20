@@ -1,7 +1,7 @@
+import jwt from 'jsonwebtoken';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/db/dbConnect';
 import User from '@/db/models/User';
-import jwt from 'jsonwebtoken';
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,7 +22,7 @@ export default async function handler(
       );
       res.setHeader(
         'Set-Cookie',
-        `loginToken=${token}; HttpOnly; Path=/; Max-Age=3600`,
+        `loginToken=${token}; HttpOnly; Path=/; Max-Age=3600 SameSite=Strict`,
       );
       res.send(loginUser);
       break;
