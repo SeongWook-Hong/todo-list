@@ -3,16 +3,11 @@ import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
 import { useDeleteTodo, usePatchTodo, usePostTodo } from '@/hooks/useMyTodos';
-import { useRouter } from 'next/router';
 
 export default function Home() {
-  const router = useRouter();
-  const { userId } = router.query;
-  const id = userId?.toString();
-
-  const { mutate: postTodo } = usePostTodo(id);
-  const { mutate: patchTodo } = usePatchTodo(id);
-  const { mutate: deleteTodo } = useDeleteTodo(id);
+  const { mutate: postTodo } = usePostTodo();
+  const { mutate: patchTodo } = usePatchTodo();
+  const { mutate: deleteTodo } = useDeleteTodo();
 
   const handleAddTodo = (newContent: { content: string; deadline: string }) => {
     postTodo(newContent);

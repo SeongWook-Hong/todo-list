@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/db/dbConnect';
 import Todo from '@/db/models/Todo';
@@ -7,7 +8,13 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   await dbConnect();
-  const { userId, todoId } = req.query;
+  const { todoId } = req.query;
+  const token = req.cookies.loginToken;
+  if (!token) {
+    return res.status(401).send('Authentication required');
+  }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+  const userId = (decoded as { userId: string }).userId;
 
   switch (req.method) {
     case 'PATCH':
