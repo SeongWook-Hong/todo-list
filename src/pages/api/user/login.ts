@@ -22,7 +22,7 @@ export default async function handler(
       );
       res.setHeader(
         'Set-Cookie',
-        `loginToken=${token}; HttpOnly; Path=/; Max-Age=3600 SameSite=Strict`,
+        `loginToken=${token}; Path=/; Max-Age=3600 SameSite=Strict`,
       );
       res.send(loginUser);
       break;

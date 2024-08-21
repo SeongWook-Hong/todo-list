@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
 import Modal from '@/components/common/Modal/Modal';
 import ModalPortal from '@/components/common/Modal/ModalPortal';
@@ -8,6 +10,9 @@ interface Props {
 }
 
 const Editor = ({ onAddTodo }: Props) => {
+  const token = Cookies.get('loginToken');
+  const router = useRouter();
+
   const [content, setContent] = useState('');
   const contentRef = useRef<HTMLInputElement>(null);
 
@@ -25,10 +30,11 @@ const Editor = ({ onAddTodo }: Props) => {
       contentRef.current?.focus();
       return;
     }
-    // if (!id) {
-    //   alert('로그인 후에 서비스를 이용할 수 있습니다.');
-    //   return;
-    // }
+    if (!token) {
+      alert('로그인 후에 서비스를 이용할 수 있습니다.');
+      router.push('/auth/signin');
+      return;
+    }
     setModalOpen(true);
   };
   const handleModalClose = () => {
