@@ -1,15 +1,20 @@
 import baseAxios from '@/lib/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import Cookies from 'js-cookie';
 
 // todos 불러오기
-export const useGetTodos = () =>
-  useQuery({
+export const useGetTodos = () => {
+  const token = Cookies.get('loginToken');
+  return useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
-      const { data } = await baseAxios.get(`/todo/`);
+      const { data } = await baseAxios.get(`/todo/`, { withCredentials: true });
       return data;
     },
+    enabled: !!token,
+    placeholderData: [],
   });
+};
 
 // todo 추가하기
 export const usePostTodo = () => {
