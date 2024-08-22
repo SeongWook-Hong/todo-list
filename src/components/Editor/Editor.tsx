@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
@@ -69,4 +69,4 @@ const Editor = ({ onAddTodo }: Props) => {
   );
 };
 
-export default Editor;
+export default memo(Editor);

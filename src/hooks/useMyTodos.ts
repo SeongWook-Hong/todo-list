@@ -1,17 +1,17 @@
 import baseAxios from '@/lib/axios';
+import { useLoginStore } from '@/store/useAuthStore';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import Cookies from 'js-cookie';
 
 // todos 불러오기
 export const useGetTodos = () => {
-  const token = Cookies.get('loginToken');
+  const { isLogin } = useLoginStore();
   return useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
       const { data } = await baseAxios.get(`/todo/`, { withCredentials: true });
       return data;
     },
-    enabled: !!token,
+    enabled: isLogin,
     placeholderData: [],
   });
 };

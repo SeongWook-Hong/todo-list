@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import Button from '@/components/common/Button';
-import YYYYMMDD from '@/lib/dateForm';
+import { YYYYMMDD } from '@/lib/dateForm';
 
 interface Props {
   content: string;

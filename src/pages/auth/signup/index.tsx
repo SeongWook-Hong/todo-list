@@ -53,43 +53,45 @@ const Signup = () => {
 
   return (
     <>
-      <h1 className="mx-auto my-5">회원가입</h1>
-      <form onSubmit={handleSubmitForm}>
-        <InputForm
-          htmlFor="email"
-          value={values.email}
-          onChange={handleChangeInput}
+      <main className="ml-auto mr-auto flex w-[500px] flex-col gap-5 p-5">
+        <h1 className="mx-auto my-5">회원가입</h1>
+        <form onSubmit={handleSubmitForm}>
+          <InputForm
+            htmlFor="email"
+            value={values.email}
+            onChange={handleChangeInput}
+          >
+            이메일
+          </InputForm>
+          <InputForm
+            htmlFor="password"
+            value={values.password}
+            onChange={handleChangeInput}
+          >
+            비밀번호
+          </InputForm>
+          <InputForm
+            htmlFor="retype"
+            type={'password'}
+            value={values.retype}
+            onChange={handleChangeInput}
+          >
+            비밀번호 확인
+          </InputForm>
+          <Button btn_type="primary" extraStyle="w-[100%] mt-2">
+            회원가입
+          </Button>
+        </form>
+        <Button
+          btn_type="delete"
+          extraStyle="w-[50%] ml-auto"
+          onClick={() => {
+            router.push('/auth/signin');
+          }}
         >
-          이메일
-        </InputForm>
-        <InputForm
-          htmlFor="password"
-          value={values.password}
-          onChange={handleChangeInput}
-        >
-          비밀번호
-        </InputForm>
-        <InputForm
-          htmlFor="retype"
-          type={'password'}
-          value={values.retype}
-          onChange={handleChangeInput}
-        >
-          비밀번호 확인
-        </InputForm>
-        <Button btn_type="primary" extraStyle="w-[100%] mt-2">
-          회원가입
+          이미 계정이 있으신가요?
         </Button>
-      </form>
-      <Button
-        btn_type="delete"
-        extraStyle="w-[50%] ml-auto"
-        onClick={() => {
-          router.push('/auth/signin');
-        }}
-      >
-        이미 계정이 있으신가요?
-      </Button>
+      </main>
     </>
   );
 };
