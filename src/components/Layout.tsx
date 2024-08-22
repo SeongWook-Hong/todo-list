@@ -5,12 +5,8 @@ interface Props {
 }
 const Layout = ({ children }: Props) => {
   return (
-    <div>
-      <header>Header</header>
-      <main className="ml-auto mr-auto flex w-[500px] flex-col gap-5 p-5">
-        {children}
-      </main>
-      <footer>Footer</footer>
+    <div className="ml-auto mr-auto w-[500px] p-5">
+      <main className="flex flex-col gap-5">{children}</main>
     </div>
   );
 };
