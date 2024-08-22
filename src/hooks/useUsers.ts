@@ -1,4 +1,5 @@
 import baseAxios from '@/lib/axios';
+import { useLoginStore } from '@/store/useAuthStore';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 
@@ -17,7 +18,9 @@ export const useGetOldUser = () => {
 
 // 로그인 및 토큰 인증
 export const usePostLogin = () => {
+  const { setIsLogin } = useLoginStore();
   const router = useRouter();
+
   return useMutation({
     mutationFn: async (userInfo: { email: string; password: string }) => {
       const { data: loginData } = await baseAxios.post(
@@ -36,6 +39,7 @@ export const usePostLogin = () => {
       return loginData;
     },
     onSuccess: () => {
+      setIsLogin();
       router.push('/');
     },
     onError: () => {
