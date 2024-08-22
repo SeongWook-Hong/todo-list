@@ -3,6 +3,7 @@ import Header from '@/components/Header/Header';
 import List from '@/components/List/List';
 import Head from 'next/head';
 import { useDeleteTodo, usePatchTodo, usePostTodo } from '@/hooks/useMyTodos';
+import LoginMenu from '@/components/LoginMenu/LoginMenu';
 
 export default function Home() {
   const { mutate: postTodo } = usePostTodo();
@@ -27,6 +28,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <LoginMenu />
       <Header />
       <Editor onAddTodo={handleAddTodo} />
       <List onUpdateTodo={handleUpdateTodo} onDeleteTodo={handleDeleteTodo} />
