@@ -9,7 +9,7 @@ const LoginMenu = () => {
 
   return (
     <header className="mb-4">
-      {!isLogin ? (
+      {isLogin === undefined ? (
         <div className="flex items-center justify-end gap-2">
           <Button
             btn_type="primary"
@@ -30,7 +30,7 @@ const LoginMenu = () => {
         </div>
       ) : (
         <div className="flex items-center justify-between">
-          OOO님, 오늘 하루도 화이팅!
+          {isLogin}님, 오늘 하루도 화이팅!
           <Button
             btn_type="delete"
             onClick={() => {

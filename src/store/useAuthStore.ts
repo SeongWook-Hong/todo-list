@@ -2,17 +2,17 @@ import { create } from 'zustand';
 import Cookies from 'js-cookie';
 
 interface LoginState {
-  isLogin: boolean;
-  setIsLogin: () => void;
+  isLogin: string | undefined;
+  setIsLogin: (nickname?: string) => void;
 }
 export const useLoginStore = create<LoginState>((set, get) => ({
-  isLogin: false,
-  setIsLogin: () => {
+  isLogin: undefined,
+  setIsLogin: (nickname?: string) => {
     if (get().isLogin) {
-      set({ isLogin: false });
+      set({ isLogin: undefined });
       Cookies.remove('loginToken');
     } else {
-      set({ isLogin: true });
+      set({ isLogin: nickname });
     }
   },
 }));
