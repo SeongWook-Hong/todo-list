@@ -11,7 +11,7 @@ export const useGetTodos = () => {
       const { data } = await baseAxios.get(`/todo/`, { withCredentials: true });
       return data;
     },
-    enabled: isLogin,
+    enabled: !!isLogin,
     placeholderData: [],
   });
 };

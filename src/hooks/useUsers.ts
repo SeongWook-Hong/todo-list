@@ -38,8 +38,8 @@ export const usePostLogin = () => {
       });
       return loginData;
     },
-    onSuccess: () => {
-      setIsLogin();
+    onSuccess: (loginData) => {
+      setIsLogin(loginData.nickname);
       router.push('/');
     },
     onError: () => {
