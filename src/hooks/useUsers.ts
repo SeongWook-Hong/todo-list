@@ -51,13 +51,22 @@ export const usePostLogin = () => {
 
 // user 정보 추가하기
 export const usePostUser = () => {
+  const router = useRouter();
   return useMutation({
-    mutationFn: async (userInfo: { email: string; password: string }) => {
+    mutationFn: async (userInfo: {
+      email: string;
+      nickname: string;
+      password: string;
+    }) => {
       const { data } = await baseAxios.post('/user/', {
         email: userInfo.email,
+        nickname: userInfo.nickname,
         password: userInfo.password,
       });
       return data;
+    },
+    onSuccess: () => {
+      router.push('/auth/signin');
     },
   });
 };

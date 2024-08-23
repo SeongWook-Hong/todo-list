@@ -9,6 +9,7 @@ const Signup = () => {
 
   const [values, setValues] = useState({
     email: '',
+    nickname: '',
     password: '',
     retype: '',
   });
@@ -16,9 +17,6 @@ const Signup = () => {
   const { mutate: postUser } = usePostUser();
   const { mutate: getUser } = useGetOldUser();
 
-  const handleAddUser = (userInfo: { email: string; password: string }) => {
-    postUser(userInfo);
-  };
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -33,6 +31,7 @@ const Signup = () => {
     const formData = new FormData(e.currentTarget);
 
     const email = formData.get('email') as string;
+    const nickname = formData.get('nickname') as string;
     const password = formData.get('password') as string;
     const retype = formData.get('retype') as string;
 
@@ -40,15 +39,15 @@ const Signup = () => {
       alert('패스워드가 일치하지 않습니다.');
       return;
     }
+
     getUser(email, {
       onSuccess: () => {
         alert('이미 사용 중인 이메일 입니다.');
-        return;
+      },
+      onError: () => {
+        postUser({ email, nickname, password });
       },
     });
-
-    handleAddUser({ email, password });
-    router.push('/auth/signin');
   };
 
   return (
@@ -62,6 +61,13 @@ const Signup = () => {
             onChange={handleChangeInput}
           >
             이메일
+          </InputForm>
+          <InputForm
+            htmlFor="nickname"
+            value={values.nickname}
+            onChange={handleChangeInput}
+          >
+            사용자 이름
           </InputForm>
           <InputForm
             htmlFor="password"
