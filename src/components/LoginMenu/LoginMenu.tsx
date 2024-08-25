@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
 import { useLoginStore } from '@/store/useAuthStore';
 import Image from 'next/image';
-import logo from '@/assets/images/logo.png';
 
 const LoginMenu = () => {
   const { isLogin, setIsLogin } = useLoginStore();
@@ -12,7 +11,7 @@ const LoginMenu = () => {
   return (
     <header className="mb-4 flex items-center">
       <Image
-        src={logo}
+        src="/images/logo.png"
         width={120}
         height={40}
         alt="todo-list logo"
