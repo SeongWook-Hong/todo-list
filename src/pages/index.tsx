@@ -4,9 +4,12 @@ import List from '@/components/List/List';
 import Head from 'next/head';
 import { useDeleteTodo, usePatchTodo, usePostTodo } from '@/hooks/useMyTodos';
 import LoginMenu from '@/components/LoginMenu/LoginMenu';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import { usePostLoginByToken } from '@/hooks/useUsers';
 
 export default function Home() {
+  const { mutate: postLoginByToken } = usePostLoginByToken();
+
   const { mutate: postTodo } = usePostTodo();
   const { mutate: patchTodo } = usePatchTodo();
   const { mutate: deleteTodo } = useDeleteTodo();
@@ -22,6 +25,10 @@ export default function Home() {
   }, []);
   const handleDeleteTodo = useCallback((targetId: number) => {
     deleteTodo(targetId);
+  }, []);
+
+  useEffect(() => {
+    postLoginByToken();
   }, []);
 
   return (

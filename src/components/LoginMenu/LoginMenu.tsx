@@ -5,7 +5,7 @@ import { useLoginStore } from '@/store/useAuthStore';
 import Image from 'next/image';
 
 const LoginMenu = () => {
-  const { isLogin, setIsLogin } = useLoginStore();
+  const { isLogin, loginName, setIsLogin } = useLoginStore();
   const router = useRouter();
 
   return (
@@ -17,7 +17,19 @@ const LoginMenu = () => {
         alt="todo-list logo"
         className="mr-auto"
       />
-      {isLogin === undefined ? (
+      {isLogin ? (
+        <div>
+          {loginName}님
+          <Button
+            btn_type="delete"
+            onClick={() => {
+              setIsLogin();
+            }}
+          >
+            ✕
+          </Button>
+        </div>
+      ) : (
         <>
           <Button
             btn_type="primary"
@@ -37,18 +49,6 @@ const LoginMenu = () => {
             로그인
           </Button>
         </>
-      ) : (
-        <div>
-          {isLogin}님
-          <Button
-            btn_type="delete"
-            onClick={() => {
-              setIsLogin();
-            }}
-          >
-            ✕
-          </Button>
-        </div>
       )}
     </header>
   );

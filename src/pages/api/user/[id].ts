@@ -10,6 +10,11 @@ export default async function handler(
   const { id } = req.query;
 
   switch (req.method) {
+    case 'GET':
+      const findUser = await User.findById(id);
+      res.status(200).send(findUser);
+      break;
+
     case 'DELETE':
       const deleteUser = await User.findByIdAndDelete(id);
       res.status(204).send(deleteUser);
