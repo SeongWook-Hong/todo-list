@@ -2,20 +2,29 @@ import { memo } from 'react';
 import { useRouter } from 'next/router';
 import Button from '@/components/common/Button';
 import { useLoginStore } from '@/store/useAuthStore';
+import Image from 'next/image';
 
 const LoginMenu = () => {
   const { isLogin, setIsLogin } = useLoginStore();
   const router = useRouter();
 
   return (
-    <header className="mb-4">
+    <header className="mb-4 flex items-center">
+      <Image
+        src="/images/logo.png"
+        width={120}
+        height={40}
+        alt="todo-list logo"
+        className="mr-auto"
+      />
       {isLogin === undefined ? (
-        <div className="flex items-center justify-end gap-2">
+        <>
           <Button
             btn_type="primary"
             onClick={() => {
               router.push('/auth/signup');
             }}
+            extraStyle="mr-2"
           >
             가입
           </Button>
@@ -27,17 +36,17 @@ const LoginMenu = () => {
           >
             로그인
           </Button>
-        </div>
+        </>
       ) : (
-        <div className="flex items-center justify-between">
-          {isLogin}님, 오늘 하루도 화이팅!
+        <div>
+          {isLogin}님
           <Button
             btn_type="delete"
             onClick={() => {
               setIsLogin();
             }}
           >
-            logout
+            ✕
           </Button>
         </div>
       )}
