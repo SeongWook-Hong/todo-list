@@ -49,6 +49,27 @@ export const usePostLogin = () => {
   });
 };
 
+// 페이지 새로고침 시에 사용되는 hook: Token 유무 확인 후 자동 로그인
+export const usePostLoginByToken = () => {
+  const { setIsLogin } = useLoginStore();
+
+  return useMutation({
+    mutationFn: async () => {
+      const { data } = await baseAxios.get('/user/auth', {
+        withCredentials: true,
+      });
+      const { data: userData } = await baseAxios.get(
+        `/user/${data.user.userId}`,
+      );
+      return userData.nickname;
+    },
+    onSuccess: (nickname) => {
+      setIsLogin(nickname);
+    },
+    retry: false,
+  });
+};
+
 // user 정보 추가하기
 export const usePostUser = () => {
   const router = useRouter();
