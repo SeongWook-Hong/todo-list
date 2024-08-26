@@ -3,12 +3,15 @@ import { useLoginStore } from '@/store/useAuthStore';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 // todos 불러오기
-export const useGetTodos = () => {
+export const useGetTodos = (all?: boolean) => {
   const { isLogin } = useLoginStore();
   return useQuery({
-    queryKey: ['todos'],
+    queryKey: ['todos', all],
     queryFn: async () => {
-      const { data } = await baseAxios.get(`/todo/`, { withCredentials: true });
+      const { data } = await baseAxios.get('/todo/', {
+        params: { all },
+        withCredentials: true,
+      });
       return data;
     },
     enabled: isLogin,

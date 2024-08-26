@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Items from './Items';
 import { useGetTodos } from '@/hooks/useMyTodos';
 import { useLoginStore } from '@/store/useAuthStore';
@@ -14,7 +14,9 @@ interface Props {
   onDeleteTodo: (targetId: number) => void;
 }
 const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
-  const { data: todos, isSuccess } = useGetTodos();
+  const [all, setAll] = useState<boolean | undefined>(undefined);
+
+  const { data: todos, isSuccess } = useGetTodos(all);
   const { isLogin } = useLoginStore();
 
   const { notDoneCount } = useMemo(() => {
@@ -25,6 +27,13 @@ const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
     return { notDoneCount };
   }, [todos]);
 
+  const handleAllClick = () => {
+    if (all) {
+      setAll(undefined);
+    } else {
+      setAll(true);
+    }
+  };
   return (
     <div className="flex flex-col gap-5">
       <div className="font-bold">오늘 할 일 ✏📚</div>
@@ -33,7 +42,13 @@ const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
           <h3>할 일을 모두 완료했어요 ☺</h3>
         ) : (
           <>
-            <div className="flex justify-between">
+            <div className="flex items-end justify-end">
+              <div
+                className="text-customGray text-bottom text-[12px]"
+                onClick={handleAllClick}
+              >
+                {all ? '돌아가기 〉' : '〈 지난 할 일 모두 보기'}
+              </div>
               <div className="ml-auto mr-3">미완료: {notDoneCount}</div>
             </div>
             {todos?.map((todo: TTodo) => (

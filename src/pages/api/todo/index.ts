@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/db/dbConnect';
 import Todo from '@/db/models/Todo';
+import { YYYYMMDD } from '@/lib/dateForm';
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,7 +24,11 @@ export default async function handler(
       break;
 
     case 'GET':
-      const todos = await Todo.find({ userId });
+      const { all } = req.query;
+      const today = YYYYMMDD(new Date());
+
+      const query = all ? { userId } : { userId, deadline: { $gte: today } };
+      const todos = await Todo.find(query).sort({ deadline: 1 });
       res.send(todos);
       break;
 
