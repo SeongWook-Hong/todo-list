@@ -1,7 +1,11 @@
-const YYYYMMDD = (date: Date) => date.toISOString().split('T')[0];
+const YYYYMMDD = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
 
-const koreanDateString = () => {
-  const date = new Date();
+const koreanDateString = (date: Date) => {
   return date.toLocaleDateString('ko-KR', {
     year: 'numeric',
     month: 'long',

@@ -18,7 +18,7 @@ export default async function handler(
       const token = jwt.sign(
         { userId: loginUser._id, email: loginUser.email },
         process.env.JWT_SECRET!,
-        { expiresIn: '1h' },
+        { expiresIn: '1d' },
       );
       res.setHeader(
         'Set-Cookie',

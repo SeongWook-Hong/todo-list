@@ -12,10 +12,10 @@ const LoginMenu = () => {
     <header className="mb-4 flex items-center">
       <Image
         src="/images/logo.png"
-        width={120}
-        height={40}
         alt="todo-list logo"
         className="mr-auto"
+        width={120}
+        height={40}
       />
       {isLogin ? (
         <div>
