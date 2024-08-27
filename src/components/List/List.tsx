@@ -5,12 +5,16 @@ import { useLoginStore } from '@/store/useAuthStore';
 
 interface TTodo {
   _id: number;
+  emotionLv?: number;
   isDone: boolean;
   content: string;
   deadline: string;
 }
 interface Props {
-  onUpdateTodo: (targetId: number) => void;
+  onUpdateTodo: (updateContent: {
+    targetId: number;
+    emotionLv: number;
+  }) => void;
   onDeleteTodo: (targetId: number) => void;
 }
 const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
@@ -44,7 +48,7 @@ const List = ({ onUpdateTodo, onDeleteTodo }: Props) => {
           <>
             <div className="flex items-end justify-end">
               <div
-                className="text-customGray text-bottom text-[12px]"
+                className="text-bottom text-[12px] text-customGray"
                 onClick={handleAllClick}
               >
                 {all ? '돌아가기 〉' : '〈 지난 할 일 모두 보기'}

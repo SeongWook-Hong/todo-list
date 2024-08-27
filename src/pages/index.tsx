@@ -20,9 +20,12 @@ export default function Home() {
     },
     [],
   );
-  const handleUpdateTodo = useCallback((targetId: number) => {
-    patchTodo(targetId);
-  }, []);
+  const handleUpdateTodo = useCallback(
+    (updateContent: { targetId: number; emotionLv: number }) => {
+      patchTodo(updateContent);
+    },
+    [],
+  );
   const handleDeleteTodo = useCallback((targetId: number) => {
     deleteTodo(targetId);
   }, []);

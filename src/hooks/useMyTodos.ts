@@ -43,10 +43,17 @@ export const usePatchTodo = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (targetId: number) => {
-      const { data } = await baseAxios.patch(`/todo/${targetId}`, {
-        isDone: true,
-      });
+    mutationFn: async (updateContent: {
+      targetId: number;
+      emotionLv: number;
+    }) => {
+      const { data } = await baseAxios.patch(
+        `/todo/${updateContent.targetId}`,
+        {
+          emotionLv: updateContent.emotionLv,
+          isDone: true,
+        },
+      );
       return data;
     },
     onSuccess: () => {
