@@ -33,7 +33,7 @@ const AddModal = ({ content, onAddTodo, onModalClose }: Props) => {
           }
         }}
       >
-        <div className="flex h-[25%] w-[25%] flex-col items-center justify-between rounded-md bg-white p-[30px]">
+        <div className="flex h-[220px] w-[320px] flex-col items-center justify-between rounded-md bg-white p-[30px]">
           <h2>마감일 설정하기</h2>
           <input
             type="date"

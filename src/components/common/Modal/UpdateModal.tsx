@@ -36,8 +36,8 @@ const UpdateModal = ({ targetId, onUpdateTodo, onModalClose }: Props) => {
           }
         }}
       >
-        <div className="flex h-[25%] w-[25%] flex-col items-center justify-between rounded-md bg-white p-[20px]">
-          <h2>이 일을 마친 감정은 어떠신가요?</h2>
+        <div className="flex h-[250px] w-[350px] flex-col items-center justify-between rounded-md bg-white p-[20px]">
+          <h2>이 일을 마친 소감은 어떠신가요?</h2>
           <div className="flex gap-4">
             {emotionList.map((item) => (
               <EmotionList
